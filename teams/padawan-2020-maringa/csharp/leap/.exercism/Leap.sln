@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leap", "..\Leap.csproj", "{765C566E-EFDD-459B-936D-AA19859198EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{765C566E-EFDD-459B-936D-AA19859198EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{765C566E-EFDD-459B-936D-AA19859198EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{765C566E-EFDD-459B-936D-AA19859198EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{765C566E-EFDD-459B-936D-AA19859198EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E279820-5772-4013-8D76-D5250EF35C74}
+	EndGlobalSection
+EndGlobal
