@@ -2,11 +2,11 @@ using System;
 
 public class SpaceAge
 {    
-    public double Years { get; set; }
+    public double Years { get; private set; }
 
     public SpaceAge(int seconds)
     {
-        Years = TimeSpan.FromSeconds(seconds).TotalDays / 365.25;
+        Years = seconds / 31557600.0;
     }
 
     public double OnEarth() => Years;
