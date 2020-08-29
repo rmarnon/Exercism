@@ -9,16 +9,12 @@ public static class Hamming
             int count = 0;
             for (int i = 0; i < firstStrand.Length; i++)
             {
-                if (firstStrand[i] != secondStrand[i])
-                {
-                    count++;
-                }
+                if (firstStrand[i] != secondStrand[i])                
+                    count++;                
             }
             return count;
         }
-        else
-        {
-            throw new ArgumentException();
-        }
+
+        throw new ArgumentException();
     }
 }
