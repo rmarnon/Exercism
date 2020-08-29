@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +19,7 @@ public class HighScores
     public List<int> PersonalTopThree()
     {
         Score.Sort();
-        List<int> _3Max = new List<int>(); 
+        List<int> _3Max = new List<int>();
 
         if (Score.Count < 4)
         {
