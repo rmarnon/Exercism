@@ -21,11 +21,11 @@ public class Allergies
 
     public Allergies(int mask)
     {
+        Mask = mask;
         if (Mask == 0)
         {
-            Allergens = new Allergen[0];           
+            Allergens = new Allergen[0];
         }
-        Mask = mask;
     }
 
     public bool IsAllergicTo(Allergen allergen)
@@ -34,13 +34,11 @@ public class Allergies
             return false;
 
         List<int> list = new List<int>();
-
         int x = 0, exp = 0;
 
         while (x <= Mask)
         {
             x = (int)Math.Pow(2, exp);
-
             int value = (Mask & x);
 
             if (value == x)
@@ -48,18 +46,14 @@ public class Allergies
                 list.Add(value);
             }
             exp++;
-        }    
+        }
 
-        if (list.Sum() == this.Mask)
+        list.RemoveAll(x => x > 128);
+        Allergens = new Allergen[list.Count];
+
+        for (int i = 0; i < list.Count; i++)
         {
-            list.RemoveAll(x => x > 128);
-
-            Allergens = new Allergen[list.Count];
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                Allergens[i] = Enum.Parse<Allergen>(list[i].ToString());
-            }            
+            Allergens[i] = Enum.Parse<Allergen>(list[i].ToString());
         }
         return Allergens.Contains(allergen);
     }
