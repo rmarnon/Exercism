@@ -3,9 +3,11 @@ using System.Diagnostics.CodeAnalysis;
 
 public partial class Clock : IEquatable<Clock>
 {
-    public int Hours { get; set; }
-    public int Minutes { get; set; }
+    internal int Hours { get; set; }
+    internal int Minutes { get; set; }
 
+    public Clock(int minutes) : this(0, minutes) { }
+    
     public Clock(int hours, int minutes)
     {     
         Hours = (hours + (minutes / 60)) % 24;
@@ -35,10 +37,12 @@ public partial class Clock : IEquatable<Clock>
         if (obj is null || !(obj is Clock))
             return false;
 
-        return Equals(obj);
+        return obj is Clock clock && Equals(clock);
     }
 
     public override int GetHashCode() => HashCode.Combine(Hours, Minutes);
+
+    public int ToMinute() => Hours * 60 + Minutes;
 
     public override string ToString() => $"{Hours:D2}:{Minutes:D2}";    
 }

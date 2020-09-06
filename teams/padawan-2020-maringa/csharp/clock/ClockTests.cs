@@ -10,9 +10,7 @@ public class ClockTests
         var sut = new Clock(8, 0);
         Assert.Equal("08:00", sut.ToString());
     }
-    /// <summary>
-    /// 
-    /// </summary>
+
     [Fact]
     public void Past_the_hour()
     {
