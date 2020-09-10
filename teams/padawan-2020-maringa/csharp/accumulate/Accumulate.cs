@@ -4,15 +4,15 @@ using System.Linq;
 
 public static class AccumulateExtensions
 {
-    //public static IEnumerable<U> Accumulate<T, U>(this IEnumerable<T> collection, Func<T, U> func)
-    //{
-    //    foreach (T item in collection)
-    //    {
-    //        yield return func(item);
-    //    }
-    //}
-
     public static IEnumerable<U> Accumulate<T, U>(this IEnumerable<T> collection, Func<T, U> func)
+    {
+        foreach (T item in collection)
+        {
+            yield return func(item);
+        }
+    }
+
+    public static IEnumerable<U> AccumulateNoLazy<T, U>(this IEnumerable<T> collection, Func<T, U> func)
     {
         List<U> result = new List<U>();
 
