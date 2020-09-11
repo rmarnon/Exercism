@@ -1,4 +1,5 @@
 using LinkedList;
+using System;
 
 public class QueueDeque<T>
 {
@@ -10,26 +11,42 @@ public class QueueDeque<T>
         if (Last is null)
         {
             Last = new TNodo<T> { Value = value };
+            First = Last;
             return;
         }
 
-        if (First is null || First.Equals(Last))
+        if (First.Equals(Last))
         {
-            First = new TNodo<T> { Value = value, Next = Last };
-            Last.Previous = new TNodo<T> { Value = First.Value };
+            Last = new TNodo<T> { Value = value, Next = null, Previous = First };
+            First.Next = Last;
+            First.Previous = null;
         }
         else
-            First = new TNodo<T> { Value = value, Next = First };
+        {
+            var _new = new TNodo<T> { Value = value, Next = null, Previous = Last };
+            Last.Next = _new;
+            Last = _new;
+        }
     }
 
 
     public T Dequeue()
     {
-        T value = Last.Value;
+        if (First is null)
+            throw new ArgumentException("Fila vazia1");       
 
-        if (Last.Previous is not null)
-            Last = Last.Previous;
+        T value = First.Value;
 
+        if (First.Equals(Last))
+        {
+            First = null;
+            Last = null;
+        }
+        else
+        {
+            First.Next.Previous = null;
+            First = First.Next;            
+        }
         return value;
     }
 }

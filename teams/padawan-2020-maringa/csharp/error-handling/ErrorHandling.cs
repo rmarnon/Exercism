@@ -37,13 +37,13 @@ public static class ErrorHandling
     public static void DisposableResourcesAreDisposedWhenExceptionIsThrown(IDisposable disposableObject)
     {
         try
-        {
-            disposableObject.Dispose();
+        {            
             throw new Exception();
         }
-        catch (Exception)
+        catch 
         {
-            throw new Exception();
+            disposableObject.Dispose();
+            throw;
         }
     }
 }
