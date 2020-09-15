@@ -22,46 +22,45 @@ public static class TreeBuilder
 {
     public static Tree BuildTree(IEnumerable<TreeBuildingRecord> records)
     {
-        var ordered = new SortedList<int, TreeBuildingRecord>();
-
-        foreach (var record in records)
-        {
-            ordered.Add(record.RecordId, record);
-        }
-
-        records = ordered.Values;
+        records = records.OrderBy(p => p.RecordId).ToList();
 
         var trees = new List<Tree>();
         var previousRecordId = -1;
 
         foreach (var record in records)
-        {   
-            var t = new Tree { Children = new List<Tree>(), Id = record.RecordId, ParentId = record.ParentId };
-            trees.Add(t);
+        {
+            var tree = new Tree { Children = new List<Tree>(), Id = record.RecordId, ParentId = record.ParentId };
+            trees.Add(tree);
+            VerifyTree(previousRecordId, tree);
+            previousRecordId++;
+        }
 
-            if ((t.Id == 0 && t.ParentId != 0) ||
-                (t.Id != 0 && t.ParentId >= t.Id) ||
-                (t.Id != 0 && t.Id != previousRecordId + 1))
+        if (trees.Count != 0)
+        {
+            foreach (var item in trees.Skip(1))
             {
-                throw new ArgumentException();
+                trees.FirstOrDefault(p => p.Id == item.ParentId).Children.Add(item);
             }
-
-            ++previousRecordId;
         }
-        
-        if (trees.Count == 0)
-        {
+        else
             throw new ArgumentException();
-        }
 
-        for (int i = 1; i < trees.Count; i++)
+        return trees.First(t => t.Id == 0);       
+    }
+
+    private static void VerifyTree(int previousRecordId, Tree t)
+    {
+        if (t.Id == 0 && t.ParentId == 0)
         {
-            var t = trees.First(x => x.Id == i);
-            var parent = trees.First(x => x.Id == t.ParentId);
-            parent.Children.Add(t);
+            return;
         }
-
-        var r = trees.First(t => t.Id == 0);
-        return r;
+        else 
+        {
+            if (t.ParentId < t.Id && t.Id == previousRecordId + 1)
+            {
+                return;
+            }  
+        }
+        throw new ArgumentException();
     }
 }
