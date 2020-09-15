@@ -22,12 +22,10 @@ public static class TreeBuilder
 {
     public static Tree BuildTree(IEnumerable<TreeBuildingRecord> records)
     {
-        records = records.OrderBy(p => p.RecordId).ToList();
-
         var trees = new List<Tree>();
         var previousRecordId = -1;
 
-        foreach (var record in records)
+        foreach (var record in records.OrderBy(p => p.RecordId))
         {
             var tree = new Tree { Children = new List<Tree>(), Id = record.RecordId, ParentId = record.ParentId };
             trees.Add(tree);
