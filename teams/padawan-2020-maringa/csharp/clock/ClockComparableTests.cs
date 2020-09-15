@@ -192,34 +192,34 @@ public class ClockComparableTests
         Assert.Equal(expected, input);
     }
 
-    //[Fact]
-    //public void Ascending_sorting()
-    //{
-    //    var input = new List<Clock> { new Clock(03, 00), new Clock(27, 01), new Clock(01, 02), -new Clock(21, 30) };
-    //    var expected = new List<Clock> { new Clock(01, 02), -new Clock(21, 30), new Clock(03, 00), new Clock(27, 01) };
-    //    input.Sort(ClockComparer.Ascending);
+    [Fact]
+    public void Ascending_sorting()
+    {
+        var input = new List<Clock> { new Clock(03, 00), new Clock(27, 01), new Clock(01, 02), -new Clock(21, 30) };
+        var expected = new List<Clock> { new Clock(01, 02), -new Clock(21, 30), new Clock(03, 00), new Clock(27, 01) };
+        input.Sort(ClockComparer.Ascending);
 
-    //    Assert.Equal(expected, input);
-    //}
+        Assert.Equal(expected, input);
+    }
 
-    //[Fact]
-    //public void Descending_sorting()
-    //{
-    //    var input = new List<Clock> { new Clock(03, 00), new Clock(27, 01), new Clock(01, 02), -new Clock(21, 30) };
-    //    var expected = new List<Clock> { new Clock(27, 01), new Clock(03, 00) , - new Clock(21, 30), new Clock(01, 02) };
-    //    input.Sort(ClockComparer.Descending);
+    [Fact]
+    public void Descending_sorting()
+    {
+        var input = new List<Clock> { new Clock(03, 00), new Clock(27, 01), new Clock(01, 02), -new Clock(21, 30) };
+        var expected = new List<Clock> { new Clock(27, 01), new Clock(03, 00), -new Clock(21, 30), new Clock(01, 02) };
+        input.Sort(ClockComparer.Descending);
 
-    //    Assert.Equal(expected, input);
-    //}
+        Assert.Equal(expected, input);
+    }
 
-    //[Fact]
-    //public void Descending_hour_ascending_minute_sorting()
-    //{
-    //    var input = new List<Clock> { new Clock(27, 49), new Clock(03, 00), new Clock(27, 01), new Clock(01, 02), -new Clock(21, 30), new Clock(03, 15) };
-    //    var expected = new List<Clock> { new Clock(03, 00), new Clock(27, 01), new Clock(03, 15), new Clock(27, 49), -new Clock(21, 30), new Clock(01, 02) };
+    [Fact]
+    public void Descending_hour_ascending_minute_sorting()
+    {
+        var input = new List<Clock> { new Clock(27, 49), new Clock(03, 00), new Clock(27, 01), new Clock(01, 02), -new Clock(21, 30), new Clock(03, 15) };
+        var expected = new List<Clock> { new Clock(03, 00), new Clock(27, 01), new Clock(03, 15), new Clock(27, 49), -new Clock(21, 30), new Clock(01, 02) };
 
-    //    input.Sort(ClockComparer.DescendingHourAscendingMinutes);
+        input.Sort(ClockComparer.DescendingHourAscendingMinutes);
 
-    //    Assert.Equal(expected, input);
-    //}
+        Assert.Equal(expected, input);
+    }
 }

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 public partial class Clock : IComparable<Clock>, IComparable
-{
+{   
     public int CompareTo([AllowNull] Clock other) 
     {
         if (this > other)
