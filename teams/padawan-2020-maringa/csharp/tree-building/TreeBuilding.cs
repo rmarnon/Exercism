@@ -8,12 +8,15 @@ public class TreeBuildingRecord
     public int RecordId { get; set; }
 }
 
-public class Tree
+public class Tree : TreeBuildingRecord
 {
-    public int Id { get; set; }
-    public int ParentId { get; set; }
+    public List<Tree> Children { get; set; } = new List<Tree>();
 
-    public List<Tree> Children { get; set; }
+    public Tree(TreeBuildingRecord record)
+    {
+        ParentId = record.ParentId;
+        RecordId = record.RecordId;
+    }
 
     public bool IsLeaf => Children.Count == 0;
 }
@@ -22,43 +25,8 @@ public static class TreeBuilder
 {
     public static Tree BuildTree(IEnumerable<TreeBuildingRecord> records)
     {
-        var trees = new List<Tree>();
-        var previousRecordId = -1;
+        if (!(records?.Any() ?? false))                    throw new ArgumentException();               var orderedRecords = records.OrderBy(record => record.RecordId);        var hasInvalidItems = orderedRecords.Where((record, index) =>             record.RecordId != index ||            (record.RecordId == 0 && record.ParentId != 0) ||            (record.RecordId != 0 && record.ParentId >= record.RecordId)).Any();        if (hasInvalidItems)                   throw new ArgumentException();               var trees = orderedRecords.Select((record) => new Tree(record)).ToList();        trees.ForEach(item =>        {            if (item.RecordId > 0)                trees.First(record => record.RecordId == item.ParentId).Children.Add(item);        });
 
-        foreach (var record in records.OrderBy(p => p.RecordId))
-        {
-            var tree = new Tree { Children = new List<Tree>(), Id = record.RecordId, ParentId = record.ParentId };
-            trees.Add(tree);
-            VerifyTree(previousRecordId, tree);
-            previousRecordId++;
-        }
-
-        if (trees.Count != 0)
-        {
-            foreach (var item in trees.Skip(1))
-            {
-                trees.FirstOrDefault(p => p.Id == item.ParentId).Children.Add(item);
-            }
-        }
-        else
-            throw new ArgumentException();
-
-        return trees.First(t => t.Id == 0);       
-    }
-
-    private static void VerifyTree(int previousRecordId, Tree t)
-    {
-        if (t.Id == 0 && t.ParentId == 0)
-        {
-            return;
-        }
-        else 
-        {
-            if (t.ParentId < t.Id && t.Id == previousRecordId + 1)
-            {
-                return;
-            }  
-        }
-        throw new ArgumentException();
+        return trees.First();
     }
 }
